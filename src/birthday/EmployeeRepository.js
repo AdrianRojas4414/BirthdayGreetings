@@ -7,7 +7,7 @@ export class EmployeeRepository{
         this.fileName = fileName;
     }
 
-    getEmployeeByBirthDate(ourDate, fileName, smtpUrl, smtpPort, transport){
+    getEmployeeByBirthDate(ourDate, fileName){
         const data = fs.readFileSync(
           path.resolve(__dirname, `${fileName}`), //`../${fileName}`),
           "UTF-8"
@@ -19,19 +19,9 @@ export class EmployeeRepository{
         const employees = lines
           .map((line) => this.createEmployeeFromLine(line))
           .filter((employee) => employee.isBirthday(ourDate));
-    
-        employees.forEach((employee) => {
-          const message = {
-            host: smtpUrl,
-            port: smtpPort,
-            from: "sender@here.com",
-            to: [employee.getEmail()],
-            subject: "Happy Birthday!",
-            text: `Happy Birthday, dear ${employee.getFirstName()}!`,
-          };
-          transport.sendMail(message);
-        });
+        return employees;
       }
+
       createEmployeeFromLine(line) {
         const employeeData = line.split(", ");
         const employee = new Employee(
