@@ -1,3 +1,5 @@
+import { EmailMessageService } from "./EmailMessageService";
+
 export class BirthdayService {
   constructor(employeeRepository) {
     this.employeeRepository = employeeRepository;
@@ -5,19 +7,8 @@ export class BirthdayService {
 
   sendGreetings(ourDate, smtpUrl, smtpPort, transport) {
     let employees = this.employeeRepository.getEmployeeByBirthDate(ourDate);
-    this.getEmailService(employees, smtpUrl, smtpPort, transport);
-  }
-  getEmailService(employees, smtpUrl, smtpPort, transport){
-    employees.forEach((employee) => {
-      const message = {
-        host: smtpUrl,
-        port: smtpPort,
-        from: "sender@here.com",
-        to: [employee.getEmail()],
-        subject: "Happy Birthday!",
-        text: `Happy Birthday, dear ${employee.getFirstName()}!`,
-      };
-      transport.sendMail(message);
-    });
+    let emails = new EmailMessageService();
+
+    emails.getEmailService(employees, smtpUrl, smtpPort, transport);
   }
 }
