@@ -1,8 +1,8 @@
-import { OurDate } from "./OurDate";
-import { InMemoryTransport } from "./InMemoryTransport";
-import { EmployeeRepository } from "./EmployeeRepository";
-import { BirthdayService } from "./BirthdayService";
-import { EmailMessageService } from "./EmailMessageService";
+import { OurDate } from "../domain/OurDate";
+import { InMemoryTransport } from "../domain/InMemoryTransport";
+import { EmployeeRepository } from "../infrastructure/EmployeeRepository";
+import { BirthdayService } from "../services/BirthdayService";
+import { EmailMessageService } from "../infrastructure/EmailMessageService";
 
 describe("Acceptance", () => {
   const SMTP_PORT = 25;
