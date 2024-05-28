@@ -1,14 +1,11 @@
-import { EmailMessageService } from "./EmailMessageService";
-
 export class BirthdayService {
-  constructor(employeeRepository) {
+  constructor(employeeRepository, emailMessageService) {
     this.employeeRepository = employeeRepository;
+    this.emailMessageService = emailMessageService;
   }
 
-  sendGreetings(ourDate, smtpUrl, smtpPort, transport) {
+  sendGreetings(ourDate) {
     let employees = this.employeeRepository.getEmployeeByBirthDate(ourDate);
-    let emails = new EmailMessageService();
-
-    emails.getEmailService(employees, smtpUrl, smtpPort, transport);
+    this.emailMessageService.getEmailService(employees);
   }
 }

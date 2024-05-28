@@ -1,17 +1,21 @@
 export class EmailMessageService{
-    constructor(){}
+    constructor(smtpUrl, smtpPort, transport){
+        this.smtpUrl = smtpUrl;
+        this.smtpPort = smtpPort;
+        this.transport = transport;
+    }
 
-    getEmailService(employees, smtpUrl, smtpPort, transport){
+    getEmailService(employees){
         employees.forEach((employee) => {
             const message = {
-              host: smtpUrl,
-              port: smtpPort,
+              host: this.smtpUrl,
+              port: this.smtpPort,
               from: "sender@here.com",
               to: [employee.getEmail()],
               subject: "Happy Birthday!",
               text: `Happy Birthday, dear ${employee.getFirstName()}!`,
             };
-            transport.sendMail(message);
+            this.transport.sendMail(message);
           });
     }
 }
