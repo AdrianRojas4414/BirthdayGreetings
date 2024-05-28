@@ -1,11 +1,17 @@
 import fs from "fs";
 import path from "path";
 import { Employee } from "./Employee";
+import { EmployeeRepository } from "./EmployeeRepository";
 
 export class BirthdayService {
   constructor() {}
 
   sendGreetings(ourDate, fileName, smtpUrl, smtpPort, transport) {
+    let employeeRepositor = new EmployeeRepository();
+    let employees = employeeRepositor.getEmployeeByBirthDate(ourDate, fileName, smtpUrl, smtpPort, transport);
+  }
+
+  getEmployeeByBirthDate(ourDate, fileName, smtpUrl, smtpPort, transport){
     const data = fs.readFileSync(
       path.resolve(__dirname, `${fileName}`), //`../${fileName}`),
       "UTF-8"
