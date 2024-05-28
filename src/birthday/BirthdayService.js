@@ -5,7 +5,9 @@ export class BirthdayService {
 
   sendGreetings(ourDate, smtpUrl, smtpPort, transport) {
     let employees = this.employeeRepository.getEmployeeByBirthDate(ourDate);
-
+    this.getEmailService(employees, smtpUrl, smtpPort, transport);
+  }
+  getEmailService(employees, smtpUrl, smtpPort, transport){
     employees.forEach((employee) => {
       const message = {
         host: smtpUrl,
