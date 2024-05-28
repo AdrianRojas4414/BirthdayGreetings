@@ -7,9 +7,9 @@ export class EmployeeRepository{
         this.fileName = fileName;
     }
 
-    getEmployeeByBirthDate(ourDate, fileName){
+    getEmployeeByBirthDate(ourDate){
         const data = fs.readFileSync(
-          path.resolve(__dirname, `${fileName}`), //`../${fileName}`),
+          path.resolve(__dirname, `${this.fileName}`), //`../${fileName}`),
           "UTF-8"
         );
     
